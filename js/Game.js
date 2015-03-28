@@ -33,7 +33,7 @@ SideScroller.Game.prototype = {
     this.createMonsterInfusion();
 
     //create player
-    this.player = this.game.add.sprite(70*55, 70*96, 'player'); //initial position
+    this.player = this.game.add.sprite(70*55, 70*96, 'eye'); //initial position
 
     //enable physics on the player
     this.game.physics.arcade.enable(this.player);
@@ -43,11 +43,8 @@ SideScroller.Game.prototype = {
     // this.player.movement = this.monsterInfusions['blob'].bind(this);
     this.player.monster = new Eyeball(this);
 
-    //properties when the player is ducked and standing, so we can use in update()
-    var playerDuckImg = this.game.cache.getImage('playerDuck');
-    this.player.duckedDimensions = {width: playerDuckImg.width, height: playerDuckImg.height};
     this.player.standDimensions = {width: this.player.width, height: this.player.height};
-    this.player.anchor.setTo(0.5, 1);
+    this.player.anchor.setTo(0.5, 0.5);
 
     //the camera will follow the player in the world
     this.game.camera.follow(this.player);
@@ -123,15 +120,6 @@ SideScroller.Game.prototype = {
 
   gameOver: function() {
     this.game.state.start('Game');
-  },
-
-  playerDuck: function() {
-      //change image and update the body size for the physics engine
-      this.player.loadTexture('playerDuck');
-      this.player.body.setSize(this.player.duckedDimensions.width, this.player.duckedDimensions.height);
-
-      //we use this to keep track whether it's ducked or not
-      this.player.isDucked = true;
   },
 
   render: function() {
