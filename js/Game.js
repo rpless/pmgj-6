@@ -7,88 +7,10 @@ SideScroller.Game.prototype = {
     this.game.time.advancedTiming = true;
   },
 
-  monsterInfusions : {
-    blob: function(cursors) {
-
-        if (cursors.left.isDown) {
-          this.player.body.velocity.x = -100;
-        }
-
-        if (cursors.right.isDown) {
-          this.player.body.velocity.x = 100;
-        }
-
-        if (!cursors.left.isDown && !cursors.right.isDown) {
-          this.player.body.velocity.x = 0;
-        }
-    },
-
-    feet: function(cursors) {
-
-        if (cursors.left.isDown) {
-          this.player.body.velocity.x = -300;
-        }
-
-        if (cursors.right.isDown) {
-          this.player.body.velocity.x = 300;
-        }
-
-        if (!cursors.left.isDown && !cursors.right.isDown) {
-          this.player.body.velocity.x = 0;
-        }
-    },
-
-    kangaroo: function(cursors) {
-
-        if (cursors.left.isDown) {
-          this.player.body.velocity.x = -300;
-        }
-
-        if (cursors.right.isDown) {
-          this.player.body.velocity.x = 300;
-        }
-
-        if (!cursors.left.isDown && !cursors.right.isDown) {
-          this.player.body.velocity.x = 0;
-        }
-
-        if(cursors.up.isDown) {
-          this.playerJump();
-        }
-    },
-
-
-    rhino: function(cursors) {
-       if (cursors.left.isDown) {
-
-
-          if (this.player.body.velocity.x > -300) {
-            this.player.body.velocity.x = -300;
-          }
-          this.player.body.acceleration.x = -100;
-        }
-
-        if (cursors.right.isDown) {
-          if (this.player.body.velocity.x < 300) {
-            this.player.body.velocity.x = 300
-          }
-          this.player.body.acceleration.x = 100;
-        }
-
-        if (!cursors.left.isDown && !cursors.right.isDown) {
-          this.player.body.acceleration.x = 0;
-          if (this.player.body.velocity.x > 0) { //drag
-            this.player.body.velocity.x -= 10;
-          }
-          if (this.player.body.velocity.x < 0) { //drag
-            this.player.body.velocity.x += 10;
-          }
-        }
-
-        if(cursors.up.isDown) {
-          this.playerJump();
-        }
-     }
+  monsterInfusions: {
+    feet: Eyeball,
+    kangaroo: Kangaroo,
+    rhino: Rhino
   },
 
   create: function() {
@@ -118,7 +40,8 @@ SideScroller.Game.prototype = {
 
     //player gravity
     this.player.body.gravity.y = 1000;
-    this.player.movement = this.monsterInfusions['blob'].bind(this);
+    // this.player.movement = this.monsterInfusions['blob'].bind(this);
+    this.player.monster = new Eyeball(this);
 
     //properties when the player is ducked and standing, so we can use in update()
     var playerDuckImg = this.game.cache.getImage('playerDuck');
@@ -144,7 +67,7 @@ SideScroller.Game.prototype = {
     //only respond to keys and keep the speed if the player is alive
     if(this.player.alive) {
 
-      this.player.movement(this.cursors)
+      this.player.monster.update(this.cursors)
 
       //restart the game if reaching the edge
       //if(this.player.x >= this.game.world.width) {
@@ -154,7 +77,7 @@ SideScroller.Game.prototype = {
   },
 
   collect: function(player, collectable) {
-    player.movement = collectable.modifyPlayer.bind(this);
+    player.monster = new collectable.Monster(this);
     this.coinSound.play();
     collectable.destroy();
   },
@@ -166,7 +89,7 @@ SideScroller.Game.prototype = {
     var result = this.findObjectsByType('infusion', this.map, 'objectsLayer');
     result.forEach(function(element) {
       var infusion = this.createFromTiledObject(element, this.infusions);
-      infusion.modifyPlayer = this.monsterInfusions[element.properties.infusion_type];
+      infusion.Monster = this.monsterInfusions[element.properties.infusion_type];
     }, this);
   },
 
@@ -197,12 +120,6 @@ SideScroller.Game.prototype = {
 
   gameOver: function() {
     this.game.state.start('Game');
-  },
-
-  playerJump: function() {
-    if(this.player.body.blocked.down) {
-      this.player.body.velocity.y -= 700;
-    }
   },
 
   playerDuck: function() {
