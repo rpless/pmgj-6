@@ -11,11 +11,11 @@ SideScroller.Game.prototype = {
     blob: function(cursors) {
 
         if (cursors.left.isDown) {
-          this.player.body.velocity.x = -50;
+          this.player.body.velocity.x = -100;
         }
 
         if (cursors.right.isDown) {
-          this.player.body.velocity.x = 50;
+          this.player.body.velocity.x = 100;
         }
 
         if (!cursors.left.isDown && !cursors.right.isDown) {
@@ -76,7 +76,13 @@ SideScroller.Game.prototype = {
         }
 
         if (!cursors.left.isDown && !cursors.right.isDown) {
-          this.player.body.velocity.x = 0;
+          this.player.body.acceleration.x = 0;
+          if (this.player.body.velocity.x > 0) { //drag
+            this.player.body.velocity.x -= 10;
+          }
+          if (this.player.body.velocity.x < 0) { //drag
+            this.player.body.velocity.x += 10;
+          }
         }
 
         if(cursors.up.isDown) {
