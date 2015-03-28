@@ -8,6 +8,7 @@ SideScroller.Game.prototype = {
   },
 
   monsterInfusions: {
+    feet: Eyeball,
     kangaroo: Kangaroo,
     rhino: Rhino
   },
@@ -57,7 +58,7 @@ SideScroller.Game.prototype = {
     //sounds
 
     this.level1Sound = this.game.add.audio('level1');
-    this.level1Sound.play("", 0, 1, true)
+    this.level1Sound.play("", 0, 0.5, true)
     this.transformSound = this.game.add.audio('transform');
   },
 
@@ -80,7 +81,7 @@ SideScroller.Game.prototype = {
 
   collect: function(player, collectable) {
     player.monster = new collectable.Monster(this);
-    this.transformSound.play();
+    this.transformSound.play('', 0, 3);
     collectable.destroy();
   },
 
