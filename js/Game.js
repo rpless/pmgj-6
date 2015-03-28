@@ -56,10 +56,10 @@ SideScroller.Game.prototype = {
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
     //sounds
-    this.coinSound = this.game.add.audio('coin');
 
     this.level1Sound = this.game.add.audio('level1');
     this.level1Sound.play("", 0, 1, true)
+    this.transformSound = this.game.add.audio('transform');
   },
 
   update: function() {
@@ -81,7 +81,7 @@ SideScroller.Game.prototype = {
 
   collect: function(player, collectable) {
     player.monster = new collectable.Monster(this);
-    this.coinSound.play();
+    this.transformSound.play();
     collectable.destroy();
   },
 
