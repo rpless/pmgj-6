@@ -23,32 +23,12 @@
          "y":0
         }, 
         {
-         "draworder":"topdown",
-         "height":16,
+         "height":0,
          "name":"objectsLayer",
          "objects":[
                 {
                  "gid":143,
                  "height":0,
-                 "id":1,
-                 "name":"",
-                 "properties":
-                    {
-                     "infusion_type":"feet",
-                     "sprite":"goldCoin",
-                     "type":"infusion"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":518,
-                 "y":1047
-                }, 
-                {
-                 "gid":143,
-                 "height":0,
-                 "id":2,
                  "name":"",
                  "properties":
                     {
@@ -56,17 +36,15 @@
                      "sprite":"goldCoin",
                      "type":"infusion"
                     },
-                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":980,
-                 "y":1049.36630383341
+                 "x":350,
+                 "y":1042
                 }, 
                 {
                  "gid":143,
                  "height":0,
-                 "id":7,
                  "name":"",
                  "properties":
                     {
@@ -74,27 +52,24 @@
                      "sprite":"goldCoin",
                      "type":"infusion"
                     },
-                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":802.527212494084,
-                 "y":557.175106483672
+                 "x":830,
+                 "y":561
                 }],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
-         "width":50,
+         "width":0,
          "x":0,
          "y":0
         }],
- "nextobjectid":8,
  "orientation":"orthogonal",
  "properties":
     {
 
     },
- "renderorder":"right-down",
  "tileheight":70,
  "tilesets":[
         {

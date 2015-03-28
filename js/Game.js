@@ -8,7 +8,6 @@ SideScroller.Game.prototype = {
   },
 
   monsterInfusions: {
-    feet: Eyeball,
     kangaroo: Kangaroo,
     rhino: Rhino
   },
