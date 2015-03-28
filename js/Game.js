@@ -26,7 +26,7 @@ SideScroller.Game.prototype = {
     this.createCoins();
 
     //create player
-    this.player = this.game.add.sprite(100, 300, 'player');
+    this.player = this.game.add.sprite(100, 957, 'player');
 
     //enable physics on the player
     this.game.physics.arcade.enable(this.player);
