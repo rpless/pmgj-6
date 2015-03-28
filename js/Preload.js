@@ -20,6 +20,7 @@ SideScroller.Preload.prototype = {
     this.load.image('playerDead', 'assets/images/player_dead.png');
     this.load.image('goldCoin', 'assets/images/goldCoin.png');
     this.load.audio('coin', ['assets/audio/coin.ogg', 'assets/audio/coin.mp3']);
+    this.load.audio('level1', 'assets/audio/level01.mp3');
   },
   create: function() {
     this.state.start('Game');

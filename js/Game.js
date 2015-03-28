@@ -57,6 +57,9 @@ SideScroller.Game.prototype = {
 
     //sounds
     this.coinSound = this.game.add.audio('coin');
+
+    this.level1Sound = this.game.add.audio('level1');
+    this.level1Sound.play("", 0, 1, true)
   },
 
   update: function() {
