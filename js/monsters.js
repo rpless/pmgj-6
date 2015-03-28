@@ -78,7 +78,7 @@ Rhino.prototype = {
         }
 
     if(cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.body.velocity.y -= 700;
+      this.player.body.velocity.y -= 1000;
       this.jumpSound.play();
     }
   }
