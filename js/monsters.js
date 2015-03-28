@@ -26,7 +26,7 @@ function Kangaroo(Game) {
   this.player.rotation = 0;
   this.player.animations.add('eye-walk', [5, 4, 3, 2, 1]);
   this.player.animations.add('eye-hold', [1, 2, 3, 4]);
-  this._hold_animation();
+  this._hold();
   this.jumpSound = Game.add.audio('jump');
 }
 
@@ -34,7 +34,7 @@ Kangaroo.prototype = {
   update: function(cursors) {
     if (cursors.left.isDown) {
       this.player.body.velocity.x = -300;
-      this._walk_animation();
+      this._walk();
       if (this.player.scale.x > 0) {
         this.player.scale.x *= -1;
       }
@@ -42,7 +42,7 @@ Kangaroo.prototype = {
 
     if (cursors.right.isDown) {
       this.player.body.velocity.x = 300;
-      this._walk_animation();
+      this._walk();
       if (this.player.scale.x < 0) {
         this.player.scale.x *= -1;
       }
@@ -50,7 +50,7 @@ Kangaroo.prototype = {
 
     if (!cursors.left.isDown && !cursors.right.isDown) {
       this.player.body.velocity.x = 0;
-      this._hold_animation();
+      this._hold();
     }
 
     if(cursors.up.isDown && this.player.body.blocked.down) {
@@ -59,7 +59,7 @@ Kangaroo.prototype = {
     }
   },
 
-  _hold_animation: function() {
+  _hold: function() {
     if (!this.player.animations.currentAnim ||
         this.player.animations.currentAnim.name != 'eye-hold') {
       this.player.loadTexture('eye-hold', 0);
@@ -67,7 +67,7 @@ Kangaroo.prototype = {
     }
   },
 
-  _walk_animation: function() {
+  _walk: function() {
     if (!this.player.animations.currentAnim ||
         this.player.animations.currentAnim.name != 'eye-walk') {
       this.player.loadTexture('eye-walk', 0);
