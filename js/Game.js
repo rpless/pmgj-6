@@ -58,13 +58,21 @@ SideScroller.Game.prototype = {
     },
 
 
-    ducker: function(cursors) {
+    rhino: function(cursors) {
        if (cursors.left.isDown) {
-          this.player.body.velocity.x = -300;
+
+
+          if (this.player.body.velocity.x > -300) {
+            this.player.body.velocity.x = -300;
+          }
+          this.player.body.acceleration.x = -100;
         }
 
         if (cursors.right.isDown) {
-          this.player.body.velocity.x = 300;
+          if (this.player.body.velocity.x < 300) {
+            this.player.body.velocity.x = 300
+          }
+          this.player.body.acceleration.x = 100;
         }
 
         if (!cursors.left.isDown && !cursors.right.isDown) {
@@ -73,16 +81,6 @@ SideScroller.Game.prototype = {
 
         if(cursors.up.isDown) {
           this.playerJump();
-        }
-        else if(cursors.down.isDown) {
-          this.playerDuck();
-        }
-
-        if(!cursors.down.isDown && this.player.isDucked && !this.pressingDown) {
-          //change image and update the body size for the physics engine
-          this.player.loadTexture('player');
-          this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
-          this.player.isDucked = false;
         }
      }
   },
