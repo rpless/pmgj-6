@@ -33,13 +33,13 @@ SideScroller.Game.prototype = {
     this.createMonsterInfusion();
 
     //create player
-    this.player = this.game.add.sprite(100, 957, 'eye');
+    this.player = this.game.add.sprite(70*55, 70*96, 'eye'); //initial position
 
     //enable physics on the player
     this.game.physics.arcade.enable(this.player);
 
     //player gravity
-    this.player.body.gravity.y = 1000;
+    this.player.body.gravity.y = 1200;
     // this.player.movement = this.monsterInfusions['blob'].bind(this);
     this.player.monster = new Eyeball(this);
 
@@ -123,7 +123,7 @@ SideScroller.Game.prototype = {
   },
 
   render: function() {
-    // this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
-    // this.game.debug.bodyInfo(this.player, 0, 80);
+     this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
+     this.game.debug.bodyInfo(this.player, 0, 80);
   }
 };

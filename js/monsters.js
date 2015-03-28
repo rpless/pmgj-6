@@ -6,12 +6,12 @@ function Eyeball(Game) {
 Eyeball.prototype = {
   update: function(cursors) {
     if (cursors.left.isDown) {
-      this.player.body.velocity.x = -50;
+      this.player.body.velocity.x = -200;
       this.player.rotation = this.player.rotation - this.rotation_factor;
     }
 
     if (cursors.right.isDown) {
-      this.player.body.velocity.x = 50;
+      this.player.body.velocity.x = 200;
       this.player.rotation = this.player.rotation + this.rotation_factor;
     }
 
@@ -54,7 +54,7 @@ Kangaroo.prototype = {
     }
 
     if(cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.body.velocity.y -= 700;
+      this.player.body.velocity.y -= 1000;
       this.jumpSound.play();
     }
   },
