@@ -20,6 +20,7 @@ Eyeball.prototype = {
 
 function Kangaroo(Game) {
   this.player = Game.player;
+  this.jumpSound = Game.add.audio('jump');
 }
 
 Kangaroo.prototype = {
@@ -42,12 +43,14 @@ Kangaroo.prototype = {
 
     if(cursors.up.isDown && this.player.body.blocked.down) {
       this.player.body.velocity.y -= 700;
+      this.jumpSound.play();
     }
   }
 };
 
 function Rhino(Game) {
   this.player = Game.player;
+  this.jumpSound = Game.add.audio('jump');
 }
 
 Rhino.prototype = {
@@ -81,7 +84,7 @@ Rhino.prototype = {
 
     if(cursors.up.isDown && this.player.body.blocked.down) {
       this.player.body.velocity.y -= 700;
+      this.jumpSound.play();
     }
   }
 }
-
