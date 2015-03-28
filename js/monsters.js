@@ -1,15 +1,18 @@
-function Eyeball(Game){
+function Eyeball(Game) {
   this.player = Game.player;
+  this.rotation_factor = 5 * (Math.PI / 180);
 }
 
 Eyeball.prototype = {
   update: function(cursors) {
     if (cursors.left.isDown) {
       this.player.body.velocity.x = -50;
+      this.player.rotation = this.player.rotation - this.rotation_factor;
     }
 
     if (cursors.right.isDown) {
       this.player.body.velocity.x = 50;
+      this.player.rotation = this.player.rotation + this.rotation_factor;
     }
 
     if (!cursors.left.isDown && !cursors.right.isDown) {
