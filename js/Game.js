@@ -84,7 +84,6 @@ SideScroller.Game.prototype = {
           this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
           this.player.isDucked = false;
         }
-
      }
   },
 
@@ -151,7 +150,7 @@ SideScroller.Game.prototype = {
   },
 
   collect: function(player, collectable) {
-    //collectable.modifyPlayer(player);
+    player.movement = collectable.modifyPlayer.bind(this);
     this.coinSound.play();
     collectable.destroy();
   },
