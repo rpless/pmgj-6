@@ -69,16 +69,19 @@ Rhino.prototype = {
 
      if (!cursors.left.isDown && !cursors.right.isDown) {
        this.player.body.acceleration.x = 0;
-       if (this.player.body.velocity.x > 0) { //drag
-         this.player.body.velocity.x -= 10;
-       }
-       if (this.player.body.velocity.x < 0) { //drag
-         this.player.body.velocity.x += 10;
-       }
-     }
+
+          if (this.player.body.velocity.x > 10) { //drag
+            this.player.body.velocity.x -= 10;
+          } else if (this.player.body.velocity.x < -10) { //drag
+            this.player.body.velocity.x += 10;
+          } else if (-10 < this.player.body.velocity < 10) {
+            this.player.body.velocity.x = 0;
+          }
+        }
 
     if(cursors.up.isDown && this.player.body.blocked.down) {
       this.player.body.velocity.y -= 700;
     }
   }
 }
+
