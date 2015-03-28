@@ -46,9 +46,6 @@ SideScroller.Game.prototype = {
     //move player with cursor keys
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
-    //init game controller
-    this.initGameController();
-
     //sounds
     this.coinSound = this.game.add.audio('coin');
   },
@@ -93,7 +90,7 @@ SideScroller.Game.prototype = {
       }
 
       if (!this.cursors.left.isDown && !this.cursors.right.isDown) {
-        this.player.body.velocity.x = 0; 
+        this.player.body.velocity.x = 0;
       }
 
       if(this.cursors.up.isDown) {
@@ -117,25 +114,7 @@ SideScroller.Game.prototype = {
     }
 
   },
-  playerHit: function(player, blockedLayer) {
-    //if hits on the right side, die
-    if(player.body.blocked.right) {
 
-      console.log(player.body.blocked);
-
-      //set to dead (this doesn't affect rendering)
-      this.player.alive = false;
-
-      //stop moving to the right
-      this.player.body.velocity.x = 0;
-
-      //change sprite image
-      this.player.loadTexture('playerDead');
-
-      //go to gameover after a few miliseconds
-      this.game.time.events.add(1500, this.gameOver, this);
-    }
-  },
   collect: function(player, collectable) {
     //play audio
     this.coinSound.play();
@@ -143,48 +122,7 @@ SideScroller.Game.prototype = {
     //remove sprite
     collectable.destroy();
   },
-  initGameController: function() {
 
-    if(!GameController.hasInitiated) {
-      var that = this;
-
-      GameController.init({
-          left: {
-              type: 'none',
-          },
-          right: {
-              type: 'buttons',
-              buttons: [
-                false,
-                {
-                  label: 'J',
-                  touchStart: function() {
-                    if(!that.player.alive) {
-                      return;
-                    }
-                    that.playerJump();
-                  }
-                },
-                false,
-                {
-                  label: 'D',
-                  touchStart: function() {
-                    if(!that.player.alive) {
-                      return;
-                    }
-                    that.pressingDown = true; that.playerDuck();
-                  },
-                  touchEnd: function(){
-                    that.pressingDown = false;
-                  }
-                }
-              ]
-          },
-      });
-      GameController.hasInitiated = true;
-    }
-
-  },
   //create coins
   createCoins: function() {
     this.coins = this.game.add.group();
