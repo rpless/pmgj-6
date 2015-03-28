@@ -1,11 +1,15 @@
 var SideScroller = SideScroller || {};
+var monsterInfusions = {
+  mole: function() {}
+};
 
 SideScroller.Game = function(){};
 
 SideScroller.Game.prototype = {
   preload: function() {
-      this.game.time.advancedTiming = true;
-    },
+    this.game.time.advancedTiming = true;
+  },
+
   create: function() {
     this.map = this.game.add.tilemap('level1');
 
@@ -22,8 +26,8 @@ SideScroller.Game.prototype = {
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
 
-    //create coins
-    this.createCoins();
+    //create infusions
+    this.createMonsterInfusion();
 
     //create player
     this.player = this.game.add.sprite(100, 957, 'player');
@@ -50,33 +54,10 @@ SideScroller.Game.prototype = {
     this.coinSound = this.game.add.audio('coin');
   },
 
- //find objects in a Tiled layer that containt a property called "type" equal to a certain value
-  findObjectsByType: function(type, map, layerName) {
-    var result = new Array();
-    map.objects[layerName].forEach(function(element){
-      if(element.properties.type === type) {
-        //Phaser uses top left, Tiled bottom left so we have to adjust
-        //also keep in mind that some images could be of different size as the tile size
-        //so they might not be placed in the exact position as in Tiled
-        element.y -= map.tileHeight;
-        result.push(element);
-      }
-    });
-    return result;
-  },
-  //create a sprite from an object
-  createFromTiledObject: function(element, group) {
-    var sprite = group.create(element.x, element.y, element.properties.sprite);
-
-      //copy all properties to the sprite
-      Object.keys(element.properties).forEach(function(key){
-        sprite[key] = element.properties[key];
-      });
-  },
   update: function() {
     //collision
     this.game.physics.arcade.collide(this.player, this.blockedLayer, this.playerHit, null, this);
-    this.game.physics.arcade.overlap(this.player, this.coins, this.collect, null, this);
+    this.game.physics.arcade.overlap(this.player, this.infusions, this.collect, null, this);
 
     //only respond to keys and keep the speed if the player is alive
     if(this.player.alive) {
@@ -112,34 +93,60 @@ SideScroller.Game.prototype = {
         this.game.state.start('Game');
       }
     }
-
   },
 
   collect: function(player, collectable) {
-    //play audio
+    collectable.modifyPlayer(player);
     this.coinSound.play();
-
-    //remove sprite
     collectable.destroy();
   },
 
-  //create coins
-  createCoins: function() {
-    this.coins = this.game.add.group();
-    this.coins.enableBody = true;
-    var result = this.findObjectsByType('coin', this.map, 'objectsLayer');
-    result.forEach(function(element){
-      this.createFromTiledObject(element, this.coins);
+  //create infusions
+  createMonsterInfusion: function() {
+    this.infusions = this.game.add.group();
+    this.infusions.enableBody = true;
+    var result = this.findObjectsByType('infusion', this.map, 'objectsLayer');
+    result.forEach(function(element) {
+      var infusion = this.createFromTiledObject(element, this.infusions);
+      infusion.modifyPlayer = monsterInfusions[element.properties.infusion_type];
     }, this);
   },
+
+  //find objects in a Tiled layer that containt a property called "type" equal to a certain value
+   findObjectsByType: function(type, map, layerName) {
+     var result = new Array();
+     map.objects[layerName].forEach(function(element){
+       if(element.properties.type === type) {
+         //Phaser uses top left, Tiled bottom left so we have to adjust
+         //also keep in mind that some images could be of different size as the tile size
+         //so they might not be placed in the exact position as in Tiled
+         element.y -= map.tileHeight;
+         result.push(element);
+       }
+     });
+     return result;
+   },
+
+  createFromTiledObject: function(element, group) {
+    var sprite = group.create(element.x, element.y, element.properties.sprite);
+
+    //copy all properties to the sprite
+    Object.keys(element.properties).forEach(function(key){
+      sprite[key] = element.properties[key];
+    });
+    return sprite;
+  },
+
   gameOver: function() {
     this.game.state.start('Game');
   },
+
   playerJump: function() {
     if(this.player.body.blocked.down) {
       this.player.body.velocity.y -= 700;
     }
   },
+
   playerDuck: function() {
       //change image and update the body size for the physics engine
       this.player.loadTexture('playerDuck');
@@ -148,9 +155,9 @@ SideScroller.Game.prototype = {
       //we use this to keep track whether it's ducked or not
       this.player.isDucked = true;
   },
-  render: function()
-    {
-        this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
-        this.game.debug.bodyInfo(this.player, 0, 80);
-    }
+
+  render: function() {
+    // this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
+    // this.game.debug.bodyInfo(this.player, 0, 80);
+  }
 };
