@@ -24,10 +24,6 @@ function Kangaroo(Game) {
 }
 
 Kangaroo.prototype = {
-  create: function() {
-    console.log("CREATED!");
-  },
-
   update: function(cursors) {
     if (cursors.left.isDown) {
       this.player.body.velocity.x = -300;
@@ -54,7 +50,6 @@ function Rhino(Game) {
 }
 
 Rhino.prototype = {
-  create: function() {},
   update: function(cursors) {
     if (cursors.left.isDown) {
        if (this.player.body.velocity.x > -300) {
@@ -87,4 +82,4 @@ Rhino.prototype = {
       this.jumpSound.play();
     }
   }
-}
+};
