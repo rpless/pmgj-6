@@ -11,6 +11,55 @@ SideScroller.Game.prototype = {
     blob: function(cursors) {
 
         if (cursors.left.isDown) {
+          this.player.body.velocity.x = -50;
+        }
+
+        if (cursors.right.isDown) {
+          this.player.body.velocity.x = 50;
+        }
+
+        if (!cursors.left.isDown && !cursors.right.isDown) {
+          this.player.body.velocity.x = 0;
+        }
+    },
+
+    feet: function(cursors) {
+
+        if (cursors.left.isDown) {
+          this.player.body.velocity.x = -300;
+        }
+
+        if (cursors.right.isDown) {
+          this.player.body.velocity.x = 300;
+        }
+
+        if (!cursors.left.isDown && !cursors.right.isDown) {
+          this.player.body.velocity.x = 0;
+        }
+    },
+
+    kangaroo: function(cursors) {
+
+        if (cursors.left.isDown) {
+          this.player.body.velocity.x = -300;
+        }
+
+        if (cursors.right.isDown) {
+          this.player.body.velocity.x = 300;
+        }
+
+        if (!cursors.left.isDown && !cursors.right.isDown) {
+          this.player.body.velocity.x = 0;
+        }
+
+        if(cursors.up.isDown) {
+          this.playerJump();
+        }
+    },
+
+
+    ducker: function(cursors) {
+       if (cursors.left.isDown) {
           this.player.body.velocity.x = -300;
         }
 
