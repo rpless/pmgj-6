@@ -1,13 +1,42 @@
 var SideScroller = SideScroller || {};
-var monsterInfusions = {
-  mole: function() {}
-};
 
 SideScroller.Game = function(){};
 
 SideScroller.Game.prototype = {
   preload: function() {
     this.game.time.advancedTiming = true;
+  },
+
+  monsterInfusions : {
+    blob: function(cursors) {
+
+        if (cursors.left.isDown) {
+          this.player.body.velocity.x = -300;
+        }
+
+        if (cursors.right.isDown) {
+          this.player.body.velocity.x = 300;
+        }
+
+        if (!cursors.left.isDown && !cursors.right.isDown) {
+          this.player.body.velocity.x = 0;
+        }
+
+        if(cursors.up.isDown) {
+          this.playerJump();
+        }
+        else if(cursors.down.isDown) {
+          this.playerDuck();
+        }
+
+        if(!cursors.down.isDown && this.player.isDucked && !this.pressingDown) {
+          //change image and update the body size for the physics engine
+          this.player.loadTexture('player');
+          this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
+          this.player.isDucked = false;
+        }
+
+     }
   },
 
   create: function() {
@@ -37,6 +66,7 @@ SideScroller.Game.prototype = {
 
     //player gravity
     this.player.body.gravity.y = 1000;
+    this.player.movement = this.monsterInfusions['blob'].bind(this);
 
     //properties when the player is ducked and standing, so we can use in update()
     var playerDuckImg = this.game.cache.getImage('playerDuck');
@@ -62,41 +92,17 @@ SideScroller.Game.prototype = {
     //only respond to keys and keep the speed if the player is alive
     if(this.player.alive) {
 
-      if (this.cursors.left.isDown) {
-        this.player.body.velocity.x = -300;
-      }
-
-      if (this.cursors.right.isDown) {
-        this.player.body.velocity.x = 300;
-      }
-
-      if (!this.cursors.left.isDown && !this.cursors.right.isDown) {
-        this.player.body.velocity.x = 0;
-      }
-
-      if(this.cursors.up.isDown) {
-        this.playerJump();
-      }
-      else if(this.cursors.down.isDown) {
-        this.playerDuck();
-      }
-
-      if(!this.cursors.down.isDown && this.player.isDucked && !this.pressingDown) {
-        //change image and update the body size for the physics engine
-        this.player.loadTexture('player');
-        this.player.body.setSize(this.player.standDimensions.width, this.player.standDimensions.height);
-        this.player.isDucked = false;
-      }
+      this.player.movement(this.cursors)
 
       //restart the game if reaching the edge
-      if(this.player.x >= this.game.world.width) {
-        this.game.state.start('Game');
-      }
+      //if(this.player.x >= this.game.world.width) {
+      //  this.game.state.start('Game');
+      //}
     }
   },
 
   collect: function(player, collectable) {
-    collectable.modifyPlayer(player);
+    //collectable.modifyPlayer(player);
     this.coinSound.play();
     collectable.destroy();
   },
@@ -108,7 +114,7 @@ SideScroller.Game.prototype = {
     var result = this.findObjectsByType('infusion', this.map, 'objectsLayer');
     result.forEach(function(element) {
       var infusion = this.createFromTiledObject(element, this.infusions);
-      infusion.modifyPlayer = monsterInfusions[element.properties.infusion_type];
+      infusion.modifyPlayer = this.monsterInfusions[element.properties.infusion_type];
     }, this);
   },
 
