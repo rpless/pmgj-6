@@ -44,9 +44,16 @@
 </data>
  </layer>
  <objectgroup name="objectsLayer" width="50" height="16">
-  <object gid="143" x="526" y="919">
+  <object gid="143" x="518" y="1047">
    <properties>
-    <property name="infusion_type" value="mole"/>
+    <property name="infusion_type" value="feet"/>
+    <property name="sprite" value="goldCoin"/>
+    <property name="type" value="infusion"/>
+   </properties>
+  </object>
+  <object gid="143" x="980" y="1047">
+   <properties>
+    <property name="infusion_type" value="kangaroo"/>
     <property name="sprite" value="goldCoin"/>
     <property name="type" value="infusion"/>
    </properties>
