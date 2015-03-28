@@ -39,7 +39,7 @@ SideScroller.Game.prototype = {
     this.player.duckedDimensions = {width: playerDuckImg.width, height: playerDuckImg.height};
     this.player.standDimensions = {width: this.player.width, height: this.player.height};
     this.player.anchor.setTo(0.5, 1);
-    
+
     //the camera will follow the player in the world
     this.game.camera.follow(this.player);
 
@@ -52,7 +52,7 @@ SideScroller.Game.prototype = {
     //sounds
     this.coinSound = this.game.add.audio('coin');
   },
-  
+
  //find objects in a Tiled layer that containt a property called "type" equal to a certain value
   findObjectsByType: function(type, map, layerName) {
     var result = new Array();
@@ -63,7 +63,7 @@ SideScroller.Game.prototype = {
         //so they might not be placed in the exact position as in Tiled
         element.y -= map.tileHeight;
         result.push(element);
-      }      
+      }
     });
     return result;
   },
@@ -80,10 +80,21 @@ SideScroller.Game.prototype = {
     //collision
     this.game.physics.arcade.collide(this.player, this.blockedLayer, this.playerHit, null, this);
     this.game.physics.arcade.overlap(this.player, this.coins, this.collect, null, this);
-    
+
     //only respond to keys and keep the speed if the player is alive
     if(this.player.alive) {
-      this.player.body.velocity.x = 300;  
+
+      if (this.cursors.left.isDown) {
+        this.player.body.velocity.x = -300;
+      }
+
+      if (this.cursors.right.isDown) {
+        this.player.body.velocity.x = 300;
+      }
+
+      if (!this.cursors.left.isDown && !this.cursors.right.isDown) {
+        this.player.body.velocity.x = 0; 
+      }
 
       if(this.cursors.up.isDown) {
         this.playerJump();
@@ -136,7 +147,7 @@ SideScroller.Game.prototype = {
 
     if(!GameController.hasInitiated) {
       var that = this;
-      
+
       GameController.init({
           left: {
               type: 'none',
@@ -146,7 +157,7 @@ SideScroller.Game.prototype = {
               buttons: [
                 false,
                 {
-                  label: 'J', 
+                  label: 'J',
                   touchStart: function() {
                     if(!that.player.alive) {
                       return;
@@ -189,19 +200,19 @@ SideScroller.Game.prototype = {
   playerJump: function() {
     if(this.player.body.blocked.down) {
       this.player.body.velocity.y -= 700;
-    }    
+    }
   },
   playerDuck: function() {
       //change image and update the body size for the physics engine
       this.player.loadTexture('playerDuck');
       this.player.body.setSize(this.player.duckedDimensions.width, this.player.duckedDimensions.height);
-      
+
       //we use this to keep track whether it's ducked or not
       this.player.isDucked = true;
   },
   render: function()
     {
-        this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");   
-        this.game.debug.bodyInfo(this.player, 0, 80);   
+        this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
+        this.game.debug.bodyInfo(this.player, 0, 80);
     }
 };
