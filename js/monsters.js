@@ -159,16 +159,12 @@ Rhino.prototype = {
       this.jumpAnimation();
       this.jumping = true;
     }
-<<<<<<< HEAD
-
 
     if (this.player.block > 0) {
       this.player.block = this.player.block - 1;
     }
 
-=======
     this.player.body.velocity.y = Math.min(this.player.body.velocity.y, 800);
->>>>>>> 9d90d2cd45fd18b26e1b0cd40391779a66da6277
   },
 
   jumpAnimation: function() {
@@ -267,13 +263,10 @@ ButterFly.prototype = {
         this.player.body.velocity.y = 0;
       }
     }
-<<<<<<< HEAD
 
     if (this.player.block > 0) {
       this.player.block = this.player.block - 1;
     }
-=======
     this.player.body.velocity.y = Math.min(this.player.body.velocity.y, 800);
->>>>>>> 9d90d2cd45fd18b26e1b0cd40391779a66da6277
   },
 };
