@@ -23,6 +23,7 @@ SideScroller.Preload.prototype = {
     this.load.spritesheet('eyehold-horn', 'assets/images/eyehold_horn/eye-hold-horn-cycle.png', 71, 120);
     this.load.spritesheet('eyejump-horn', 'assets/images/eyejump_horn/eye-jump-horn-cycle.png', 71, 120);
     this.load.image('goldCoin', 'assets/images/goldCoin.png');
+    this.load.image('glass', 'assets/images/glassKey.png');
 
     // audio
     this.load.audio('level1', 'assets/audio/level01.mp3');

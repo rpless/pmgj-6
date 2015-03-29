@@ -22,9 +22,19 @@ SideScroller.Game.prototype = {
     //create layers
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.blockedLayer = this.map.createLayer('blockedLayer');
+    //this.glass1 = this.map.createLayer('glass1');
+    //this.glass2 = this.map.createLayer('glass2');
+    //this.glass3 = this.map.createLayer('glass3');
+    //this.glass4 = this.map.createLayer('glass4');
+    //this.glass4 = this.map.createLayer('glass5');
 
     //collision on blockedLayer
     this.map.setCollisionBetween(1, 5000, true, 'blockedLayer');
+    //this.map.setCollisionBetween(1, 5000, true, 'glass1');
+    //this.map.setCollisionBetween(1, 5000, true, 'glass2');
+    //this.map.setCollisionBetween(1, 5000, true, 'glass3');
+    //this.map.setCollisionBetween(1, 5000, true, 'glass4');
+    //this.map.setCollisionBetween(1, 5000, true, 'glass5');
 
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
@@ -57,6 +67,11 @@ SideScroller.Game.prototype = {
     this.level1Sound = this.game.add.audio('level1');
     this.level1Sound.play("", 0, 0.5, true);
     this.transformSound = this.game.add.audio('transform');
+
+    //create glass
+    this.createGlass();
+
+
   },
 
   update: function() {
@@ -91,11 +106,26 @@ SideScroller.Game.prototype = {
     collectable.destroy();
   },
 
+  createGlass: function() {
+    var glassnames = ['glass1', 'glass2', 'glass3', 'glass4', 'glass5'];
+    for (var glass in glassnames) {
+      this.glasses = this.game.add.group();
+      this.glasses.enableBody = true;
+
+      var result = this.findObjectsByType('glass', this.map, glassnames[glass]);
+      result.forEach(function(element) {
+        var g = this.createFromTiledObject(element, this.glasses);
+        //TODO add in a callback for collision
+      }, this);
+    }
+  },
+
   //create infusions
   createMonsterInfusion: function() {
     this.infusions = this.game.add.group();
     this.infusions.enableBody = true;
     var result = this.findObjectsByType('infusion', this.map, 'objectsLayer');
+
     result.forEach(function(element) {
       var infusion = this.createFromTiledObject(element, this.infusions);
       infusion.Monster = this.monsterInfusions[element.properties.infusion_type];
@@ -126,6 +156,18 @@ SideScroller.Game.prototype = {
     });
     return sprite;
   },
+
+  /*
+  createFromGlassObject: function(element, group) {
+    var line = group.create(element.x, element.y, element.properties);
+
+    //copy all properties to the sprite
+    Object.keys(element.properties).forEach(function(key){
+      line[key] = element.properties[key];
+    });
+    return line;
+  },
+  */
 
   gameOver: function() {
     this.game.state.start('Game');
