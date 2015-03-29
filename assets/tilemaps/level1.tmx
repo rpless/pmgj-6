@@ -487,66 +487,79 @@
  <objectgroup name="glass4">
   <object id="97" gid="84" x="5529.68" y="5941.91">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="98" gid="84" x="5529.68" y="5825.55">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="99" gid="84" x="5529.68" y="5736.57">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="100" gid="84" x="5536.53" y="5640.75">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="101" gid="84" x="5557.06" y="5551.77">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="102" gid="84" x="5584.44" y="5476.48">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="103" gid="84" x="5646.04" y="5408.03">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="104" gid="84" x="5728.18" y="5360.12">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="105" gid="84" x="5810.31" y="5339.59">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="106" gid="84" x="5892.45" y="5353.28">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="107" gid="84" x="5974.58" y="5394.34">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="108" gid="84" x="6056.72" y="5455.94">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
   <object id="109" gid="84" x="6077.25" y="5538.08">
    <properties>
+    <property name="sprite" value="glass"/>
     <property name="type" value="glass"/>
    </properties>
   </object>
