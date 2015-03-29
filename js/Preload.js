@@ -23,7 +23,9 @@ SideScroller.Preload.prototype = {
     this.load.image('goldCoin', 'assets/images/goldCoin.png');
 
     // audio
-    this.load.audio('level1', 'assets/audio/YaoWang_Gamejam_level01.mp3');
+    this.load.audio('level1', 'assets/audio/level01.mp3');
+    this.load.audio('level2', 'assets/audio/level02.mp3');
+    this.load.audio('level3', 'assets/audio/level03.mp3');
     this.load.audio('transform', ['assets/audio/Transform_mutate.wav']);
     this.load.audio('jump', ['assets/audio/Jump.wav']);
     this.load.audio('walking', ['assets/audio/Walking.wav']);

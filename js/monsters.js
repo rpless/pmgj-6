@@ -28,6 +28,9 @@ function Kangaroo(Game) {
   this.player.animations.add('eye-hold', [1, 2, 3, 4]);
   this._hold();
   this.jumpSound = Game.add.audio('jump');
+  Game.sound.stopAll();
+  Game.sound.remove('level1');
+  Game.add.audio('level2').play("", 0, 0.5, true);
 }
 
 Kangaroo.prototype = {
@@ -83,6 +86,9 @@ function Rhino(Game) {
   this.player.animations.add('eyehold-horn', [1, 2, 3, 4]);
   this._hold();
   this.jumpSound = Game.add.audio('jump');
+  Game.sound.stopAll();
+  Game.sound.remove('level2');
+  Game.add.audio('level3').play("", 0, 0.5, true);
 }
 
 Rhino.prototype = {

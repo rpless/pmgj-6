@@ -55,7 +55,7 @@ SideScroller.Game.prototype = {
     //sounds
 
     this.level1Sound = this.game.add.audio('level1');
-    this.level1Sound.play("", 0, 0.5, true)
+    this.level1Sound.play("", 0, 0.5, true);
     this.transformSound = this.game.add.audio('transform');
   },
 
