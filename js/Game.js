@@ -23,19 +23,9 @@ SideScroller.Game.prototype = {
     //create layers
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.blockedLayer = this.map.createLayer('blockedLayer');
-    //this.glass1 = this.map.createLayer('glass1');
-    //this.glass2 = this.map.createLayer('glass2');
-    //this.glass3 = this.map.createLayer('glass3');
-    //this.glass4 = this.map.createLayer('glass4');
-    //this.glass4 = this.map.createLayer('glass5');
 
     //collision on blockedLayer
     this.map.setCollisionBetween(1, 5000, true, 'blockedLayer');
-    //this.map.setCollisionBetween(1, 5000, true, 'glass1');
-    //this.map.setCollisionBetween(1, 5000, true, 'glass2');
-    //this.map.setCollisionBetween(1, 5000, true, 'glass3');
-    //this.map.setCollisionBetween(1, 5000, true, 'glass4');
-    //this.map.setCollisionBetween(1, 5000, true, 'glass5');
 
     //resizes the game world to match the layer dimensions
     this.backgroundlayer.resizeWorld();
@@ -79,6 +69,11 @@ SideScroller.Game.prototype = {
     //collision
     this.game.physics.arcade.collide(this.player, this.blockedLayer, this.playerHit, null, this);
     this.game.physics.arcade.overlap(this.player, this.infusions, this.collect, null, this);
+    this.game.physics.arcade.overlap(this.player, this.glass1, this.glassHit, null, this);
+    this.game.physics.arcade.overlap(this.player, this.glass2, this.glassHit, null, this);
+    this.game.physics.arcade.overlap(this.player, this.glass3, this.glassHit, null, this);
+    this.game.physics.arcade.overlap(this.player, this.glass4, this.glassHit, null, this);
+    this.game.physics.arcade.overlap(this.player, this.glass5, this.glassHit, null, this);
 
     //only respond to keys and keep the speed if the player is alive
     if(this.player.alive) {
@@ -101,6 +96,27 @@ SideScroller.Game.prototype = {
     }
   },
 
+  glassHit: function(player, glass) {
+    //check speed
+    //make 'tink' or break glass
+    if (player.body.velocity.x > 500 || player.body.velocity.x < -500) {
+      //BREAK
+
+      this.breakSound = this.game.add.audio('break');
+      this.breakSound.play('', 0, 3);
+    } else {
+      //TINK
+      this.tinkSound = this.game.add.audio('hit');
+      this.tinkSound.play('', 0, 3);
+
+      //bounce
+      player.body.velocity.x = -1 * player.body.velocity.x;
+      player.body.velocity.y = -1 * player.body.velocity.y;
+      player.block = 5; //how many ticks to block
+    }
+
+  },
+
   collect: function(player, collectable) {
     player.monster = new collectable.Monster(this);
     this.transformSound.play('', 0, 3);
@@ -110,12 +126,12 @@ SideScroller.Game.prototype = {
   createGlass: function() {
     var glassnames = ['glass1', 'glass2', 'glass3', 'glass4', 'glass5'];
     for (var glass in glassnames) {
-      this.glasses = this.game.add.group();
-      this.glasses.enableBody = true;
+      this[glassnames[glass]] = this.game.add.group();
+      this[glassnames[glass]].enableBody = true;
 
       var result = this.findObjectsByType('glass', this.map, glassnames[glass]);
       result.forEach(function(element) {
-        var g = this.createFromTiledObject(element, this.glasses);
+        var g = this.createFromTiledObject(element, this[glassnames[glass]]);
         //TODO add in a callback for collision
       }, this);
     }
@@ -157,18 +173,6 @@ SideScroller.Game.prototype = {
     });
     return sprite;
   },
-
-  /*
-  createFromGlassObject: function(element, group) {
-    var line = group.create(element.x, element.y, element.properties);
-
-    //copy all properties to the sprite
-    Object.keys(element.properties).forEach(function(key){
-      line[key] = element.properties[key];
-    });
-    return line;
-  },
-  */
 
   gameOver: function() {
     this.game.state.start('Game');

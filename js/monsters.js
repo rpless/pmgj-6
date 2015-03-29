@@ -1,16 +1,17 @@
 function Eyeball(Game) {
   this.player = Game.player;
   this.rotation_factor = 5 * (Math.PI / 180);
+  this.player.block = 0 // block keyboard input for some animations if > 0
 }
 
 Eyeball.prototype = {
   update: function(cursors) {
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown && this.player.block < 1) {
       this.player.body.velocity.x = -200;
       this.player.rotation = this.player.rotation - this.rotation_factor;
     }
 
-    if (cursors.right.isDown) {
+    if (cursors.right.isDown && this.player.block < 1) {
       this.player.body.velocity.x = 200;
       this.player.rotation = this.player.rotation + this.rotation_factor;
     }
@@ -18,6 +19,11 @@ Eyeball.prototype = {
     if (!cursors.left.isDown && !cursors.right.isDown) {
       this.player.body.velocity.x = 0;
     }
+
+    if (this.player.block > 0) {
+      this.player.block = this.player.block - 1;
+    }
+
   }
 };
 
@@ -37,7 +43,7 @@ function Kangaroo(Game) {
 
 Kangaroo.prototype = {
   update: function(cursors) {
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown && this.player.block < 1) {
       this.player.body.velocity.x = -300;
       this.walkAnimation();
       if (this.player.scale.x > 0) {
@@ -45,7 +51,7 @@ Kangaroo.prototype = {
       }
     }
 
-    if (cursors.right.isDown) {
+    if (cursors.right.isDown && this.player.block < 1) {
       this.player.body.velocity.x = 300;
       this.walkAnimation();
       if (this.player.scale.x < 0) {
@@ -64,6 +70,12 @@ Kangaroo.prototype = {
       this.jumpAnimation();
       this.jumping = true;
     }
+
+
+    if (this.player.block > 0) {
+      this.player.block = this.player.block - 1;
+    }
+
   },
 
   jumpAnimation: function() {
@@ -108,7 +120,7 @@ function Rhino(Game) {
 
 Rhino.prototype = {
   update: function(cursors) {
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown && this.player.block < 1) {
       if (this.player.body.velocity.x > -300) {
         this.player.body.velocity.x = -300;
       }
@@ -119,7 +131,7 @@ Rhino.prototype = {
       }
     }
 
-    if (cursors.right.isDown) {
+    if (cursors.right.isDown && this.player.block < 1) {
       if (this.player.body.velocity.x < 300) {
         this.player.body.velocity.x = 300
       }
@@ -148,6 +160,12 @@ Rhino.prototype = {
       this.jumpAnimation();
       this.jumping = true;
     }
+
+
+    if (this.player.block > 0) {
+      this.player.block = this.player.block - 1;
+    }
+
   },
 
   jumpAnimation: function() {
@@ -191,7 +209,7 @@ function ButterFly(Game) {
 
 ButterFly.prototype = {
   update: function(cursors) {
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown && this.player.block < 1) {
       if (this.player.body.velocity.x > -300) {
         this.player.body.velocity.x = -300;
       }
@@ -201,7 +219,7 @@ ButterFly.prototype = {
       }
     }
 
-    if (cursors.right.isDown) {
+    if (cursors.right.isDown && this.player.block < 1) {
       if (this.player.body.velocity.x < 300) {
         this.player.body.velocity.x = 300
       }
@@ -211,14 +229,14 @@ ButterFly.prototype = {
       }
     }
 
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown && this.player.block < 1) {
       if (this.player.body.velocity.y > -300) {
         this.player.body.velocity.y = -300;
       }
       this.player.body.acceleration.y = -100;
     }
 
-    if (cursors.down.isDown) {
+    if (cursors.down.isDown && this.player.block < 1) {
       if (this.player.body.velocity.y < 300) {
         this.player.body.velocity.y = 300;
       }
@@ -245,6 +263,10 @@ ButterFly.prototype = {
       } else if (-10 < this.player.body.velocity < 10) {
         this.player.body.velocity.y = 0;
       }
+    }
+
+    if (this.player.block > 0) {
+      this.player.block = this.player.block - 1;
     }
   },
 };

@@ -33,6 +33,8 @@ SideScroller.Preload.prototype = {
     this.load.audio('transform', 'assets/audio/Transform_mutate.wav');
     this.load.audio('jump', 'assets/audio/Jump.wav');
     this.load.audio('walking', 'assets/audio/Walking.wav');
+    this.load.audio('break', 'assets/audio/breaking glass wall.wav');
+    this.load.audio('hit', 'assets/audio/Hit-Glass.wav');
   },
   create: function() {
     this.state.start('Game');
