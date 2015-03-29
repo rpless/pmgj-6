@@ -18,8 +18,10 @@ SideScroller.Preload.prototype = {
     this.load.image('eye', 'assets/images/eye.png');
     this.load.spritesheet('eye-walk', 'assets/images/eyewalk/eye-walk-cycle.png', 90, 97);
     this.load.spritesheet('eye-hold', 'assets/images/eyehold/eye-hold-cycle.png', 71, 90);
-    this.load.image('playerDead', 'assets/images/player_dead.png');
+    this.load.spritesheet('eyewalk-horn', 'assets/images/eyewalk_horn/eye-walk-horn-cycle.png', 90, 120);
+    this.load.spritesheet('eyehold-horn', 'assets/images/eyehold_horn/eye-hold-horn-cycle.png', 71, 120);
     this.load.image('goldCoin', 'assets/images/goldCoin.png');
+
     // audio
     this.load.audio('level1', 'assets/audio/YaoWang_Gamejam_level01.mp3');
     this.load.audio('transform', ['assets/audio/Transform_mutate.wav']);
