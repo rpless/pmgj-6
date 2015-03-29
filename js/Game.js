@@ -10,7 +10,8 @@ SideScroller.Game.prototype = {
   monsterInfusions: {
     feet: Eyeball,
     kangaroo: Kangaroo,
-    rhino: Rhino
+    rhino: Rhino,
+    butterfly: ButterFly
   },
 
   create: function() {

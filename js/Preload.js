@@ -22,6 +22,7 @@ SideScroller.Preload.prototype = {
     this.load.spritesheet('eyewalk-horn', 'assets/images/eyewalk_horn/eye-walk-horn-cycle.png', 90, 120);
     this.load.spritesheet('eyehold-horn', 'assets/images/eyehold_horn/eye-hold-horn-cycle.png', 71, 120);
     this.load.spritesheet('eyejump-horn', 'assets/images/eyejump_horn/eye-jump-horn-cycle.png', 71, 120);
+    this.load.spritesheet('eyefly', 'assets/images/eyefly/eye-fly-cycle.png', 130, 130);
     this.load.image('goldCoin', 'assets/images/goldCoin.png');
     this.load.image('glass', 'assets/images/glassKey.png');
 

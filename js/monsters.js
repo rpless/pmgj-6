@@ -100,7 +100,6 @@ function Rhino(Game) {
   this.player.animations.add('eyejump-horn', [1, 2, 3, 4]);
   this.jumping = false;
   this.holdAnimation();
-  this.holdAnimation();
   this.jumpSound = Game.add.audio('jump');
   Game.sound.stopAll();
   Game.sound.remove('level2');
@@ -176,4 +175,76 @@ Rhino.prototype = {
       this.player.animations.play('eyewalk-horn', 12, true);
     }
   }
+};
+
+function ButterFly(Game) {
+  this.player = Game.player;
+  this.player.rotation = 0;
+  this.player.animations.add('eyefly', [1, 2, 3, 4, 5, 6, 7, 8, 9 ,10, 11, 12]);
+  this.player.loadTexture('eyefly', 0);
+  this.player.animations.play('eyefly', 12, true);
+  this.jumping = false;
+  Game.sound.stopAll();
+  Game.sound.remove('level3');
+  Game.add.audio('ending').play("", 0, 0.5, true);
+}
+
+ButterFly.prototype = {
+  update: function(cursors) {
+    if (cursors.left.isDown) {
+      if (this.player.body.velocity.x > -300) {
+        this.player.body.velocity.x = -300;
+      }
+      this.player.body.acceleration.x = -100;
+      if (this.player.scale.x > 0) {
+        this.player.scale.x *= -1;
+      }
+    }
+
+    if (cursors.right.isDown) {
+      if (this.player.body.velocity.x < 300) {
+        this.player.body.velocity.x = 300
+      }
+      this.player.body.acceleration.x = 100;
+      if (this.player.scale.x < 0) {
+        this.player.scale.x *= -1;
+      }
+    }
+
+    if (cursors.up.isDown) {
+      if (this.player.body.velocity.y > -300) {
+        this.player.body.velocity.y = -300;
+      }
+      this.player.body.acceleration.y = -100;
+    }
+
+    if (cursors.down.isDown) {
+      if (this.player.body.velocity.y < 300) {
+        this.player.body.velocity.y = 300;
+      }
+      this.player.body.acceleration.y = 100;
+    }
+
+    if (!cursors.left.isDown && !cursors.right.isDown) {
+      this.player.body.acceleration.x = 0;
+      if (this.player.body.velocity.x > 10) { //drag
+        this.player.body.velocity.x -= 10;
+      } else if (this.player.body.velocity.x < -10) { //drag
+        this.player.body.velocity.x += 10;
+      } else if (-10 < this.player.body.velocity < 10) {
+        this.player.body.velocity.x = 0;
+      }
+    }
+
+    if (!cursors.up.isDown && !cursors.down.isDown) {
+      this.player.body.acceleration.y = 0;
+      if (this.player.body.velocity.y > 10) { //drag
+        this.player.body.velocity.y -= 10;
+      } else if (this.player.body.velocity.y < -10) { //drag
+        this.player.body.velocity.y += 10;
+      } else if (-10 < this.player.body.velocity < 10) {
+        this.player.body.velocity.y = 0;
+      }
+    }
+  },
 };
