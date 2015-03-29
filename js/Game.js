@@ -101,6 +101,7 @@ SideScroller.Game.prototype = {
     //make 'tink' or break glass
     if (player.body.velocity.x > 500 || player.body.velocity.x < -500) {
       //BREAK
+      glass.destroy();
 
       this.breakSound = this.game.add.audio('break');
       this.breakSound.play('', 0, 3);
