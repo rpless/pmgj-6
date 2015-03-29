@@ -230,9 +230,9 @@ ButterFly.prototype = {
 
     if (cursors.up.isDown && this.player.block < 1) {
       if (this.player.body.velocity.y > -300) {
-        this.player.body.velocity.y = -300;
+        this.player.body.velocity.y = -700;
       }
-      this.player.body.acceleration.y = -250;
+      this.player.body.acceleration.y = -600;
     }
 
     if (cursors.down.isDown && this.player.block < 1) {
