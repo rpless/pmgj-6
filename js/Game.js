@@ -71,8 +71,6 @@ SideScroller.Game.prototype = {
 
     //create glass
     this.createGlass();
-
-
   },
 
   update: function() {
@@ -83,12 +81,14 @@ SideScroller.Game.prototype = {
     //only respond to keys and keep the speed if the player is alive
     if(this.player.alive) {
 
-      this.player.monster.update(this.cursors)
+      this.player.monster.update(this.cursors);
+      if (this.player.body.y < 900) {
+        this.gameOver();
+      }
 
-      //restart the game if reaching the edge
-      //if(this.player.x >= this.game.world.width) {
-      //  this.game.state.start('Game');
-      //}
+      if(this.player.x >= this.game.world.width) {
+       this.game.state.start('Game');
+      }
     }
   },
 
@@ -171,7 +171,7 @@ SideScroller.Game.prototype = {
   */
 
   gameOver: function() {
-    this.game.state.start('Game');
+    this.game.state.start('Win');
   },
 
   render: function() {

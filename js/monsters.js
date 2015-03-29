@@ -64,6 +64,7 @@ Kangaroo.prototype = {
       this.jumpAnimation();
       this.jumping = true;
     }
+    this.player.body.velocity.y = Math.min(this.player.body.velocity.y, 800);
   },
 
   jumpAnimation: function() {
@@ -148,6 +149,7 @@ Rhino.prototype = {
       this.jumpAnimation();
       this.jumping = true;
     }
+    this.player.body.velocity.y = Math.min(this.player.body.velocity.y, 800);
   },
 
   jumpAnimation: function() {
@@ -215,14 +217,14 @@ ButterFly.prototype = {
       if (this.player.body.velocity.y > -300) {
         this.player.body.velocity.y = -300;
       }
-      this.player.body.acceleration.y = -100;
+      this.player.body.acceleration.y = -250;
     }
 
     if (cursors.down.isDown) {
       if (this.player.body.velocity.y < 300) {
         this.player.body.velocity.y = 300;
       }
-      this.player.body.acceleration.y = 100;
+      this.player.body.acceleration.y = 250;
     }
 
     if (!cursors.left.isDown && !cursors.right.isDown) {
@@ -246,5 +248,6 @@ ButterFly.prototype = {
         this.player.body.velocity.y = 0;
       }
     }
+    this.player.body.velocity.y = Math.min(this.player.body.velocity.y, 800);
   },
 };
