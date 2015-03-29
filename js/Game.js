@@ -76,6 +76,15 @@ SideScroller.Game.prototype = {
     }
   },
 
+  playerHit: function(player, blockLayer) {
+    if (player.body.blocked.down &&
+        player.animations.currentAnim &&
+        player.monster.jumping) {
+      player.monster.jumping = false;
+      player.monster.holdAnimation();
+    }
+  },
+
   collect: function(player, collectable) {
     player.monster = new collectable.Monster(this);
     this.transformSound.play('', 0, 3);

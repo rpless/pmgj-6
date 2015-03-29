@@ -26,7 +26,9 @@ function Kangaroo(Game) {
   this.player.rotation = 0;
   this.player.animations.add('eye-walk', [5, 4, 3, 2, 1]);
   this.player.animations.add('eye-hold', [1, 2, 3, 4]);
-  this._hold();
+  this.player.animations.add('eye-jump', [1, 2, 3, 4]);
+  this.jumping = false;
+  this.holdAnimation();
   this.jumpSound = Game.add.audio('jump');
   Game.sound.stopAll();
   Game.sound.remove('level1');
@@ -37,7 +39,7 @@ Kangaroo.prototype = {
   update: function(cursors) {
     if (cursors.left.isDown) {
       this.player.body.velocity.x = -300;
-      this._walk();
+      this.walkAnimation();
       if (this.player.scale.x > 0) {
         this.player.scale.x *= -1;
       }
@@ -45,7 +47,7 @@ Kangaroo.prototype = {
 
     if (cursors.right.isDown) {
       this.player.body.velocity.x = 300;
-      this._walk();
+      this.walkAnimation();
       if (this.player.scale.x < 0) {
         this.player.scale.x *= -1;
       }
@@ -53,16 +55,26 @@ Kangaroo.prototype = {
 
     if (!cursors.left.isDown && !cursors.right.isDown) {
       this.player.body.velocity.x = 0;
-      this._hold();
+      this.holdAnimation();
     }
 
     if (cursors.up.isDown && this.player.body.blocked.down) {
       this.player.body.velocity.y -= 1000;
       this.jumpSound.play();
+      this.jumpAnimation();
+      this.jumping = true;
     }
   },
 
-  _hold: function() {
+  jumpAnimation: function() {
+    if (!this.player.animations.currentAnim ||
+      this.player.animations.currentAnim.name != 'eye-jump') {
+      this.player.loadTexture('eye-jump', 0);
+      this.player.animations.play('eye-jump', 4, false);
+    }
+  },
+
+  holdAnimation: function() {
     if (!this.player.animations.currentAnim ||
       this.player.animations.currentAnim.name != 'eye-hold') {
       this.player.loadTexture('eye-hold', 0);
@@ -70,9 +82,10 @@ Kangaroo.prototype = {
     }
   },
 
-  _walk: function() {
+  walkAnimation: function() {
     if (!this.player.animations.currentAnim ||
-      this.player.animations.currentAnim.name != 'eye-walk') {
+      this.player.animations.currentAnim.name != 'eye-walk' &&
+      !this.jumping) {
       this.player.loadTexture('eye-walk', 0);
       this.player.animations.play('eye-walk', 12, true);
     }
@@ -84,7 +97,10 @@ function Rhino(Game) {
   this.player.rotation = 0;
   this.player.animations.add('eyewalk-horn', [5, 4, 3, 2, 1]);
   this.player.animations.add('eyehold-horn', [1, 2, 3, 4]);
-  this._hold();
+  this.player.animations.add('eyejump-horn', [1, 2, 3, 4]);
+  this.jumping = false;
+  this.holdAnimation();
+  this.holdAnimation();
   this.jumpSound = Game.add.audio('jump');
   Game.sound.stopAll();
   Game.sound.remove('level2');
@@ -98,7 +114,7 @@ Rhino.prototype = {
         this.player.body.velocity.x = -300;
       }
       this.player.body.acceleration.x = -100;
-      this._walk();
+      this.walkAnimation();
       if (this.player.scale.x > 0) {
         this.player.scale.x *= -1;
       }
@@ -109,7 +125,7 @@ Rhino.prototype = {
         this.player.body.velocity.x = 300
       }
       this.player.body.acceleration.x = 100;
-      this._walk();
+      this.walkAnimation();
       if (this.player.scale.x < 0) {
         this.player.scale.x *= -1;
       }
@@ -117,7 +133,7 @@ Rhino.prototype = {
 
     if (!cursors.left.isDown && !cursors.right.isDown) {
       this.player.body.acceleration.x = 0;
-      this._hold();
+      this.holdAnimation();
       if (this.player.body.velocity.x > 10) { //drag
         this.player.body.velocity.x -= 10;
       } else if (this.player.body.velocity.x < -10) { //drag
@@ -130,20 +146,32 @@ Rhino.prototype = {
     if (cursors.up.isDown && this.player.body.blocked.down) {
       this.player.body.velocity.y -= 1000;
       this.jumpSound.play();
+      this.jumpAnimation();
+      this.jumping = true;
     }
   },
 
-  _hold: function() {
+  jumpAnimation: function() {
+    if (!this.player.animations.currentAnim ||
+      this.player.animations.currentAnim.name != 'eyejump-horn') {
+      this.player.loadTexture('eyejump-horn', 0);
+      this.player.animations.play('eyejump-horn', 4, false);
+    }
+  },
+
+
+  holdAnimation: function() {
     if (!this.player.animations.currentAnim ||
       this.player.animations.currentAnim.name != 'eyehold-horn') {
       this.player.loadTexture('eyehold-horn', 0);
-      this.player.animations.play('eye-hold', 4, true);
+      this.player.animations.play('eyehold-horn', 4, true);
     }
   },
 
-  _walk: function() {
+  walkAnimation: function() {
     if (!this.player.animations.currentAnim ||
-      this.player.animations.currentAnim.name != 'eyewalk-horn') {
+      this.player.animations.currentAnim.name != 'eyewalk-horn' &&
+      !this.jumping) {
       this.player.loadTexture('eyewalk-horn', 0);
       this.player.animations.play('eyewalk-horn', 12, true);
     }
