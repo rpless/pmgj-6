@@ -55,7 +55,7 @@ SideScroller.Game.prototype = {
     //sounds
 
     this.level1Sound = this.game.add.audio('level1');
-    this.level1Sound.play("", 0, 0.5, true)
+    this.level1Sound.play("", 0, 0.5, true);
     this.transformSound = this.game.add.audio('transform');
   },
 
@@ -73,6 +73,15 @@ SideScroller.Game.prototype = {
       //if(this.player.x >= this.game.world.width) {
       //  this.game.state.start('Game');
       //}
+    }
+  },
+
+  playerHit: function(player, blockLayer) {
+    if (player.body.blocked.down &&
+        player.animations.currentAnim &&
+        player.monster.jumping) {
+      player.monster.jumping = false;
+      player.monster.holdAnimation();
     }
   },
 
