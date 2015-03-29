@@ -15,6 +15,11 @@ SideScroller.Game.prototype = {
   },
 
   create: function() {
+    this.background = this.game.add.tileSprite(0, 0, 1000, 1425, 'background');
+    this.background.anchor.x = -0.002;
+    this.background.anchor.y = -0.03;
+    this.background.scale.x *= 7;
+    this.background.scale.y *= 10.08;
     this.map = this.game.add.tilemap('level1');
 
     //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
@@ -182,7 +187,7 @@ SideScroller.Game.prototype = {
   },
 
   render: function() {
-     this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
-     this.game.debug.bodyInfo(this.player, 0, 80);
+    //  this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
+    //  this.game.debug.bodyInfo(this.player, 0, 80);
   }
 };
