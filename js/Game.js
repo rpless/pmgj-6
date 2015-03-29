@@ -78,6 +78,8 @@ SideScroller.Game.prototype = {
 
       this.player.monster.update(this.cursors);
       if (this.player.body.y < 900) {
+        this.sound.remove('level2');
+        this.add.audio('level3').play("", 0, 0.5, true);
         this.gameOver();
       }
 

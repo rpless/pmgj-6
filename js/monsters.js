@@ -37,8 +37,8 @@ function Kangaroo(Game) {
   this.holdAnimation();
   this.jumpSound = Game.add.audio('jump');
   Game.sound.stopAll();
-  Game.sound.remove('level1');
-  Game.add.audio('level2').play("", 0, 0.5, true);
+  //Game.sound.remove('level1');
+  //Game.add.audio('level2').play("", 0, 0.5, true);
 }
 
 Kangaroo.prototype = {
@@ -113,8 +113,8 @@ function Rhino(Game) {
   this.holdAnimation();
   this.jumpSound = Game.add.audio('jump');
   Game.sound.stopAll();
-  Game.sound.remove('level2');
-  Game.add.audio('level3').play("", 0, 0.5, true);
+  Game.sound.remove('level1');
+  Game.add.audio('level2').play("", 0, 0.5, true);
 }
 
 Rhino.prototype = {
@@ -202,8 +202,8 @@ function ButterFly(Game) {
   this.player.animations.play('eyefly', 12, true);
   this.jumping = false;
   Game.sound.stopAll();
-  Game.sound.remove('level3');
-  Game.add.audio('ending').play("", 0, 0.5, true);
+  Game.sound.remove('level2');
+  Game.add.audio('level3').play("", 0, 0.5, true);
 }
 
 ButterFly.prototype = {
